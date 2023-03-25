@@ -1,0 +1,113 @@
+<html>
+	<head>
+		<title>Planning Poker Card Set</title>
+		<style>
+		*, html {
+			box-sizing: border-box;
+			font: 2rem helvetica neue, Arial, sans-serif;
+			text-align: center;
+			color: #111;
+		}
+		header h1 {
+		  	color: #999;
+		}
+		main {
+			display: grid;
+			grid-template-rows: 1fr 1fr;
+			justify-items: center;
+			gap: 1rem;
+		}
+		footer p {
+			font-size: 50%;
+			color: #999;
+			margin: 2rem;
+		}
+		#allCards{
+			width: 91vw;
+			margin: 0 auto;
+			display: grid;
+			gap: 0.5rem;
+			grid-template-columns: 29vw 29vw 29vw;
+			justify-content: center;
+		}
+		#currentCard {
+			font-size: 8rem;
+			opacity: 1.0;
+			font-weight: bold;
+			color: #111;
+			align-self: center;
+			width: 90vw;
+			
+		}
+		#turnButton {
+			display: block;
+			margin: 1rem;
+			width: 90vw;
+		}
+		.button {
+			font-weight: 700;
+			margin: 0 .1rem;
+			padding: .9rem;
+			background-color: #f2a23a;
+			color: #fff;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			width: 100%;
+		}
+
+		</style>
+	</head>
+	<body>
+		<header><h1>Planning Poker Card Set</h1></header>
+		<nav>
+			<div id="turnButton" class="button">Turn card</button>
+		</nav>
+		<main>
+			<div id="currentCard">None</div>
+			<div id="allCards"></div>
+		</main>
+		<footer>
+			<p>
+				Planning Poker Card Set Web App für Mobilgeräte
+			</p>
+			<p>
+				Mit <3 gemacht vom CoderDojo Schöneweide Team
+			</p>
+			<p>
+				Auf GitHub gehostet
+			</p>
+		</footer>
+	</body>
+	<script>
+		/* Construct buttons for all possible card values */
+		const currentCard = document.getElementById("currentCard");
+		const allCards = document.getElementById("allCards");
+		const allCardValues = [0, 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100, "?", "Break!"];
+		for(let value of allCardValues){
+			let c = document.createElement("div")
+			c.innerText = value;
+			c.classList.add("button");
+			c.value=value;
+			c.addEventListener("click", () => {
+				currentCard.innerHTML = c.value;
+			});
+			allCards.appendChild(c);
+		}
+		
+		/* Manage showing and hiding selected card value */
+		const turnButton = document.getElementById("turnButton");
+		let turned = false;
+		turnButton.addEventListener("click", () => {
+			turned = !turned;
+			if(turned){
+				currentCard.style.color = "#999";
+				currentCard.style.background = "#999";
+			}
+			else { 
+				currentCard.style.color = "#111";
+				currentCard.style.background = "none";
+			}
+		});
+	</script>
+</html>
